@@ -1,0 +1,9 @@
+
+services:
+  BankingDB:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD='root'
+    ports:
+      - "14331:1433"
