@@ -35,12 +35,12 @@ BEGIN
   BEGIN CATCH
   -- returns status code for last transaction like 1 0 -1
     IF XACT_STATE() <> 0
-      ROLLBACK TRANSACTION
+      ROLLBACK TRANSACTION;
 
-    THROW ;
+    THROW;
   END CATCH
 
-END;
+END
 
 
 -- Accepts an AccountId.
