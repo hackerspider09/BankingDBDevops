@@ -17,8 +17,8 @@ BEGIN
   BEGIN TRY
     BEGIN TRANSACTION
       -- lock row to perform update
-      SELECT 1 FROM [dbo].[Accounts]  WITH (UPDLOCK, ROWLOCK) WHERE AccountId = @AccountId FOR UPDATE;
-      
+      SELECT 1 FROM [dbo].[Accounts]  WITH (UPDLOCK, ROWLOCK) WHERE AccountId = @AccountId;
+
       UPDATE [dbo].[Accounts] set Balance = Balance - @Amount WHERE AccountId = @AccountId AND Balance>=@Amount;
 
       -- if before transaction begin and after account check if account deleted this will prevent that transaction
