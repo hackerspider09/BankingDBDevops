@@ -9,8 +9,8 @@ BEGIN
   DECLARE @TotalTransactions INT = 0;
 
   SELECT 
-  @TotalDeposits = sum(case when TransactionType ='Deposit' then COALESCE(Amount,0) else 0 end),
-  @TotalWithdrawals = sum(case when TransactionType ='Withdrawal' then COALESCE(Amount,0) else 0 end),
+  @TotalDeposits = COALESCE(sum(case when TransactionType ='Deposit' then Amount else 0 end),0),
+  @TotalWithdrawals = COALESCE(sum(case when TransactionType ='Withdrawal' then Amount else 0 end),0),
   @TotalTransactions = count(*) 
   FROM [BankingDB].[dbo].[Transactions]
   WHERE TransactionDate >= @ReportDate AND TransactionDate < DATEADD(DAY,1,@ReportDate)
