@@ -19,6 +19,10 @@
       <Value>$(BankingDatabaseName)</Value>
       <DefaultValue>BankingDB</DefaultValue>
     </SqlCmdVariable>
+    <SqlCmdVariable Include="BankingDBServer">
+      <Value>$(BankingDBLinkServerName)</Value>
+      <DefaultValue>localhost</DefaultValue>
+    </SqlCmdVariable>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BankingDB\BankingDB.sqlproj">
@@ -27,6 +31,7 @@
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseSqlCmdVariable>BankingDB</DatabaseSqlCmdVariable>
+      <ServerSqlCmdVariable>BankingDBServer</ServerSqlCmdVariable>
     </ProjectReference>
   </ItemGroup>
 

@@ -12,7 +12,7 @@ BEGIN
   @TotalDeposits = COALESCE(sum(case when TransactionType ='Deposit' then Amount else 0 end),0),
   @TotalWithdrawals = COALESCE(sum(case when TransactionType ='Withdrawal' then Amount else 0 end),0),
   @TotalTransactions = count(*) 
-  FROM [$(BankingDB)].[dbo].[Transactions]
+  FROM [$(BankingDBServer)].[$(BankingDB)].[dbo].[Transactions]
   WHERE TransactionDate >= @ReportDate AND TransactionDate < DATEADD(DAY,1,@ReportDate)
 
   IF EXISTS ( SELECT 1 from [dbo].[DailyReports] WHERE ReportDate =@ReportDate )
