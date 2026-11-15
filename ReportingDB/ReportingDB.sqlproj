@@ -13,7 +13,7 @@
     <Folder Include="dbo\Tables" />
   </ItemGroup>
 
-  <!-- BankingDB reference  -->
+  <!-- BankingDB reference -->
   <ItemGroup>
     <SqlCmdVariable Include="BankingDB">
       <Value>$(BankingDatabaseName)</Value>
@@ -28,5 +28,10 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseSqlCmdVariable>BankingDB</DatabaseSqlCmdVariable>
     </ProjectReference>
+  </ItemGroup>
+
+  <!-- publish profile -->
+  <ItemGroup>
+    <None Include="ReportingDB_Dev.publish.xml" />
   </ItemGroup>
 </Project>
