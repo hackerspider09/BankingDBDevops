@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BankingDB", "BankingDB\BankingDB.sqlproj", "{A703A26E-3890-4CD2-830B-CDC6F679D5B6}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ReportingDB", "ReportingDB\ReportingDB.sqlproj", "{B2D12F51-2868-4E77-B580-902235DA52A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A703A26E-3890-4CD2-830B-CDC6F679D5B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A703A26E-3890-4CD2-830B-CDC6F679D5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A703A26E-3890-4CD2-830B-CDC6F679D5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A703A26E-3890-4CD2-830B-CDC6F679D5B6}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{B2D12F51-2868-4E77-B580-902235DA52A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D12F51-2868-4E77-B580-902235DA52A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D12F51-2868-4E77-B580-902235DA52A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D12F51-2868-4E77-B580-902235DA52A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
