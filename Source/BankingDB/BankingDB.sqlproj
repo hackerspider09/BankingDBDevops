@@ -13,8 +13,4 @@
     <Folder Include="dbo\Tables" />
   </ItemGroup>
 
-  <!-- publish profile -->
-  <ItemGroup>
-    <None Include="BankingDB_Dev.publish.xml" />
-  </ItemGroup>
 </Project>

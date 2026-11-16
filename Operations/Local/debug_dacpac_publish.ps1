@@ -12,7 +12,7 @@ dotnet build ../../Source/ReportingDB /p:BankingDatabaseName=BankingDB
 # publish banking db
 # SqlPackage /Action:Publish `
 #   /SourceFile:"../../Source/BankingDB/bin/Debug/BankingDB.dacpac" `
-#   /Profile:"../../Source/BankingDB/BankingDB_Dev.publish.xml" `
+#   /TargetDatabaseName:"BankingDB" `
 #   /TargetServerName:"$env:dbServerName" `
 #   /TargetUser:"$env:dbServerUsername" `
 #   /TargetPassword:"$env:dbServerPassword" `
@@ -23,7 +23,7 @@ dotnet build ../../Source/ReportingDB /p:BankingDatabaseName=BankingDB
   # publish Report db
   SqlPackage /Action:Publish `
   /SourceFile:"../../Source/ReportingDB/bin/Debug/ReportingDB.dacpac" `
-  /Profile:"../../Source/ReportingDB/ReportingDB_Dev.publish.xml" `
+  /TargetDatabaseName:"ReportingDB" `
   /TargetServerName:"$env:dbServerName" `
   /TargetUser:"$env:dbServerUsername" `
   /TargetPassword:"$env:dbServerPassword" `

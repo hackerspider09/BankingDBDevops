@@ -35,8 +35,4 @@
     </ProjectReference>
   </ItemGroup>
 
-  <!-- publish profile -->
-  <ItemGroup>
-    <None Include="ReportingDB_Dev.publish.xml" />
-  </ItemGroup>
 </Project>
