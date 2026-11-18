@@ -21,4 +21,4 @@ runs:
     
     - name: "Build Project"
       shell: pwsh
-      run: ./Build/BuildProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} 
+      run: ./Build/BuildProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -BuildProperties ${{inputs.buildProperties}}

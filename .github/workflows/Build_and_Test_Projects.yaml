@@ -28,6 +28,13 @@ jobs:
           projectName: "BankingDB"
           configuration: "Debug"
 
+      - name: "Build Reporting DB"
+        uses: './.github/actions/buildProject'
+        with:
+          projectName: "ReportingDB"
+          configuration: "Debug"
+          buildProperties: "/p:BankingDatabaseName=BankingDB"
+
       - name: "Debug"
         run: tree
 
