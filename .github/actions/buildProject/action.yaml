@@ -9,11 +9,16 @@ inputs:
   configuration:
     description: "Config mode: Debug, Release"
     default: 'Debug'
+  buildProperties:
+    description: "Build properties used during building project: /p:BankingDatabaseName=BankingDB"
 
 runs:
   using: "composite"
   steps:
     - name: "Clean Project"
-      # shell: pwsh
+      shell: pwsh
       run: ./Build/CleanProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}}
     
+    - name: "Build Project"
+      shell: pwsh
+      run: ./Build/BuildProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} 

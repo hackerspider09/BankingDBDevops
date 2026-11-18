@@ -22,9 +22,12 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v7
 
-      - run: dotnet --version
+      - name: "Build Banking DB"
+        uses: './.github/actions/buildProject'
+        with:
+          projectName: "BankingDB"
+          configuration: "Debug"
 
-      # - name: 
-      # - name: "Build Banking DB"
-      #   uses: './.github/actions/buildProject'
+      - name: "Debug"
+        run: tree
 
