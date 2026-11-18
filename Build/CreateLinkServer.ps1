@@ -61,4 +61,5 @@ $T_SQL = @"
 Invoke-SqlCmd -ServerInstance $Local_DataSource `
               -Username $LocalDbUser `
               -Password $LocalDbPassword `
-              -Query $T_SQL
+              -Query $T_SQL `
+              -TrustServerCertificate
