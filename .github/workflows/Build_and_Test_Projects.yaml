@@ -26,13 +26,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Build Banking DB"
-        uses: './.github/actions/builSQLProject'
+        uses: './.github/actions/buildSQLProject'
         with:
           projectName: "BankingDB"
           configuration: "Debug"
 
       - name: "Build Reporting DB"
-        uses: './.github/actions/builSQLProject'
+        uses: './.github/actions/buildSQLProject'
         with:
           projectName: "ReportingDB"
           configuration: "Debug"
