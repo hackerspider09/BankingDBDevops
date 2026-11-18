@@ -29,10 +29,10 @@ $T_SQL = @"
     USE [master];
     GO
 
-    -- 1. Enable AllowInProcess and DynamicParameters for MSOLEDBSQL19
-    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'AllowInProcess', 1;
-    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'DynamicParameters', 1;
-    GO
+    # -- 1. Enable AllowInProcess and DynamicParameters for MSOLEDBSQL19
+    # EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'AllowInProcess', 1;
+    # EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'DynamicParameters', 1;
+    # GO
 
     -- 2. Drop existing linked server if it exists
     if exists ( select 1 from [master].[sys].[servers] where [name] = N'$LinkedServerName' )
@@ -45,9 +45,9 @@ $T_SQL = @"
     EXEC [master].[sys].[sp_addlinkedserver] 
         @server = N'$LinkedServerName',
         @srvproduct = N'',
-        @provider = N'MSOLEDBSQL19',
+        @provider = N'MSOLEDBSQL',
         @datasrc = N'$RemoteDataSource',
-        @provstr = N'TrustServerCertificate=yes;';
+        @provstr = N'Encrypt=Mandatory;TrustServerCertificate=Yes;';
     GO
         
     -- 4. Map login
