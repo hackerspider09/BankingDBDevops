@@ -47,7 +47,7 @@ $T_SQL = @"
         @srvproduct = N'',
         @provider = N'MSOLEDBSQL19',
         @datasrc = N'$RemoteDataSource',
-        @provstr = N'Encrypt=No;';
+        @provstr = N'TrustServerCertificate=yes;';
     GO
         
     -- 4. Map login
