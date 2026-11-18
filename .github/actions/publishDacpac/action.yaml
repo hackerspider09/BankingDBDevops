@@ -10,6 +10,10 @@ inputs:
     description: "Config mode: Debug, Release"
     default: 'Debug'
   dbName:
+    required: true 
+  dbUserName:
+    default: 'sa'
+  dbUserPassword:
     required: true
   dbServerName:
     default: 'localhost'
@@ -26,5 +30,5 @@ runs:
   steps:
     - name: "Publish DacPac"
       shell: pwsh
-      run: ./Build/PublishDacpacFile.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -DbName ${{inputs.dbName}} -DbServerName ${{inputs.dbServerName}} -DbuserName $env:DB_USER -DbUserPassword $env:DB_PASS -ServerVariables '${{inputs.serverVariables}}'
+      run: ./Build/PublishDacpacFile.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -DbName ${{inputs.dbName}} -DbServerName ${{inputs.dbServerName}} -DbuserName ${{inputs.dbUserName}} -DbUserPassword ${{inputs.dbUserPassword}} -ServerVariables '${{inputs.serverVariables}}'
     
