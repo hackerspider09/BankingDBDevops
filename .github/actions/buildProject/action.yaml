@@ -11,7 +11,9 @@ inputs:
     default: 'Debug'
   buildProperties:
     description: "Build properties used during building project: /p:BankingDatabaseName=BankingDB"
+    default: ''
 
+    
 runs:
   using: "composite"
   steps:

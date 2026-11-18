@@ -12,7 +12,7 @@ param (
 
     [Parameter()]
     [string[]]
-    $BuildProperties
+    $BuildProperties = @()
 )
 
 
