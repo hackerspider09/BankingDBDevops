@@ -1,0 +1,30 @@
+
+name: Build SQL Project
+
+on:
+  workflow_call: 
+    inputs:
+      projectDir:
+        required: true
+        type: string
+        description: "Project path which needs to build"
+      configuration:
+        type: string
+        default: "Debug"
+        description: "SQL project should build in debug or release"
+
+
+jobs:
+  build_and_test:
+    runs-on: windows-latest
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v7
+
+      - run: dotnet --version
+
+      # - name: 
+      # - name: "Build Banking DB"
+      #   uses: './.github/actions/buildProject'
+
