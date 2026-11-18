@@ -30,5 +30,5 @@ runs:
   steps:
     - name: "Publish DacPac"
       shell: pwsh
-      run: ./Build/PublishDacpacFile.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -DbName ${{inputs.dbName}} -DbServerName ${{inputs.dbServerName}} -DbuserName ${{inputs.dbUserName}} -DbUserPassword ${{inputs.dbUserPassword}} -ServerVariables '${{inputs.serverVariables}}'
+      run: ./Build/PublishDacpacFile.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -DbName ${{inputs.dbName}} -DbServerName ${{inputs.dbServerName}} -DbServerUsername ${{inputs.dbUserName}} -DbServerPassword ${{inputs.dbUserPassword}} -ServerVariables '${{inputs.serverVariables}}'
     
