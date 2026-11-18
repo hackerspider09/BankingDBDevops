@@ -66,7 +66,9 @@ jobs:
           projectName: "ReportingDB"
           dbName: "ReportingDB"
           dbUserPassword: ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }}
-          serverVariables: '/v:BankingDB="BankingDB" /v:BankingDBServer="${{ vars.BankingDB_LinkServerName }}"'
+          # Do NOT wrap variable values in quotes (use /v:Key=Value, NOT /v:Key="Value"),
+          # otherwise quotes become part of the SQL identifier e.g. ["BankingDBServerLink"]
+          serverVariables: '/v:BankingDB=BankingDB /v:BankingDBServer=${{ vars.BankingDB_LinkServerName }}'
       
       - name: "Build and Test Testing project"
         run: |
