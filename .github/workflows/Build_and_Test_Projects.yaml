@@ -44,6 +44,9 @@ jobs:
       - name: Verify SQL Server Connection
         run: sqlcmd -S localhost -U ${{ vars.LOCAL_MSSQL_SA_USERNAME }} -P ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }} -C -Q "SELECT @@VERSION"
       
+      - name: Create Link server
+        run: ./Build/CreateLinkServer.ps1 -LocalDbPassword ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }} -LinkedServerName ${{ vars.BankingDB_LinkServerName }} -RemotePassword ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }}
+      
       - name: Apply BankingDB DACPAC
         uses: './.github/actions/publishDacpac'
         with:

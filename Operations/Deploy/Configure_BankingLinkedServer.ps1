@@ -46,4 +46,7 @@ $T_SQL = @"
     end catch;
 "@
 
-Invoke-SqlCmd -ServerInstance $LocalInstance -Query $T_SQL
+Invoke-SqlCmd -ServerInstance $Local_DataSource `
+              -Username $LocalDbUser `
+              -Password $LocalDbPassword `
+              -Query $T_SQL
