@@ -46,10 +46,10 @@ jobs:
           admin-username: ${{ vars.LOCAL_MSSQL_SA_USERNAME }}
           
       - name: Verify SQL Server Connection
-        run: sqlcmd -S localhost -U $env.DB_USER -P $env.DB_PASS -C -Q "SELECT @@VERSION"
+        run: sqlcmd -S localhost -U $env:DB_USER -P $env:DB_PASS -C -Q "SELECT @@VERSION"
       
       
       - name: "Build and Test Testing project"
         run: |
-          dotnet build DataBaseTests
-          dotnet test
+          dotnet build DataBaseTests/DataBaseTests.csproj
+          dotnet test DataBaseTests/DataBaseTests.csproj --no-build
