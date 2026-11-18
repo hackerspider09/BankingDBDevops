@@ -46,7 +46,7 @@ $T_SQL = @"
         @srvproduct = N'',
         @provider = N'MSOLEDBSQL19',
         @datasrc = N'$RemoteDataSource',
-        @provstr = N'Encrypt=Optional;';
+        @provstr = N'Encrypt=Optional;TrustServerCertificate=Yes;';
         
     EXEC [master].[dbo].[sp_addlinkedsrvlogin]
         @rmtsrvname = N'$LinkedServerName',
