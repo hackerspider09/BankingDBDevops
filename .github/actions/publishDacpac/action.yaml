@@ -1,0 +1,30 @@
+
+name: Build Project
+description: Build given Project to create dacpac
+
+inputs:
+  projectName:
+    required: true
+    description: "Project dir which has to build"
+  configuration:
+    description: "Config mode: Debug, Release"
+    default: 'Debug'
+  dbName:
+    required: true
+  dbServerName:
+    default: 'localhost'
+  buildProperties:
+    description: "Build properties used during building project: /p:BankingDatabaseName=BankingDB"
+    default: ''
+  serverVariables:
+    description: "Variables used during db creation: /v:BankingDB='BankingDB"
+    default: ''
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Publish DacPac"
+      shell: pwsh
+      run: ./Build/PublishDacpacFile.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -DbName ${{inputs.dbName}} -DbServerName ${{inputs.dbServerName}} -DbuserName $env:DB_USER -DbUserPassword $env:DB_PASS -ServerVariables ${{inputs.serverVariables}}
+    

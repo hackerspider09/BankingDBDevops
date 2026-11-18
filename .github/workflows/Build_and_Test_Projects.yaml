@@ -48,6 +48,18 @@ jobs:
       - name: Verify SQL Server Connection
         run: sqlcmd -S localhost -U $env:DB_USER -P $env:DB_PASS -C -Q "SELECT @@VERSION"
       
+      - name: Apply BankingDB DACPAC
+        uses: './.github/actions/publishDacpac'
+        with:
+          projectName: "BankingDB"
+          dbName: "BankingDB"
+
+      - name: Apply ReportingDB DACPAC
+        uses: './.github/actions/publishDacpac'
+        with:
+          projectName: "ReportingDB"
+          dbName: "ReportingDB"
+          serverVariables: '/v:BankingDB="BankingDB" /v:BankingDBServer="${{env.BankingDB_LinkServerName}}"'
       
       - name: "Build and Test Testing project"
         run: |
