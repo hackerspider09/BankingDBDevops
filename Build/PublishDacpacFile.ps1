@@ -59,5 +59,6 @@ SqlPackage /Action:Publish `
   /TargetPassword:"$PlainPassword" `
   /TargetEncryptConnection:True `
   /TargetTrustServerCertificate:True `
+  /p:AllowIncompatiblePlatform=True `
   $ServerVariables
 

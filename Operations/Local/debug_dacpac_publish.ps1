@@ -17,7 +17,8 @@ dotnet build ../../Source/ReportingDB /p:BankingDatabaseName=BankingDB
 #   /TargetUser:"$env:dbServerUsername" `
 #   /TargetPassword:"$env:dbServerPassword" `
 #   /TargetEncryptConnection:True `
-#   /TargetTrustServerCertificate:True
+#   /TargetTrustServerCertificate:True `
+  # /p:AllowIncompatiblePlatform=True
   
 
   # publish Report db
@@ -29,6 +30,7 @@ dotnet build ../../Source/ReportingDB /p:BankingDatabaseName=BankingDB
   /TargetPassword:"$env:dbServerPassword" `
   /TargetEncryptConnection:True `
   /TargetTrustServerCertificate:True `
+  /p:AllowIncompatiblePlatform=True `
   /v:BankingDB="BankingDB" `
   /v:BankingDBServer="BankingDBServerLink"
 

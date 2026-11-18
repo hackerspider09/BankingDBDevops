@@ -3,7 +3,7 @@
   <Sdk Name="Microsoft.Build.Sql" Version="2.3.0" />
   <PropertyGroup>
     <Name>ReportingDB</Name>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql170DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>
     <ProjectGuid>B2D12F51-2868-4E77-B580-902235DA52A1</ProjectGuid>
   </PropertyGroup>
