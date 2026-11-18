@@ -29,11 +29,18 @@ $T_SQL = @"
     USE [master];
     GO
 
+    -- 1. Enable AllowInProcess and DynamicParameters for MSOLEDBSQL19
+    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'AllowInProcess', 1;
+    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'DynamicParameters', 1;
+    GO
+
+    -- 2. Drop existing linked server if it exists
     if exists ( select 1 from [master].[sys].[servers] where [name] = N'$LinkedServerName' )
         EXEC [master].[sys].[sp_dropserver] 
             @server = N'$LinkedServerName',
             @droplogins = 'droplogins';
     
+    -- 3. Create linked server
     EXEC [master].[sys].[sp_addlinkedserver] 
         @server = N'$LinkedServerName',
         @srvproduct = N'',

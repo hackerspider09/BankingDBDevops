@@ -43,9 +43,12 @@ jobs:
           
       - name: Verify SQL Server Connection
         run: sqlcmd -S localhost -U ${{ vars.LOCAL_MSSQL_SA_USERNAME }} -P ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }} -C -Q "SELECT @@VERSION"
-      - name: Install MSOLEDBSQL19
-        shell: pwsh
-        run: winget install -e --id Microsoft.SQLServer.OLEDBDriver.19 --accept-package-agreements --accept-source-agreements
+
+      # - name: Install MSOLEDBSQL19
+      #   shell: pwsh
+      #   run: |
+      #     winget install -e --id Microsoft.SQLServer.OLEDBDriver.19 --accept-package-agreements --accept-source-agreements
+      #     Restart-Service MSSQLSERVER -Force
 
       - name: Create Link server
         run: ./Build/CreateLinkServer.ps1 -LocalDbPassword ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }} -LinkedServerName ${{ vars.BankingDB_LinkServerName }} -RemotePassword ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }}
