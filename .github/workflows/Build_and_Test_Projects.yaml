@@ -13,34 +13,43 @@ on:
 jobs:
   build_and_test:
     runs-on: windows-latest
+    env:
+      DB_USER: ${{ vars.LOCAL_MSSQL_SA_USERNAME }}
+      DB_PASS: ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }}
+
+      BankingDB_LinkServerName: ${{ vars.BankingDB_LinkServerName }}
+      BankingDB: "Server=localhost;Database=BankingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
+      ReportingDB: "Server=localhost;Database=ReportingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
 
     steps:
-      - name: Install a SQL Server suite of tools
-        uses: potatoqualitee/mssqlsuite@v2
-        with:
-          install: sqlengine, sqlpackage
-          sa-password: '${{secrets.MSSQL_SA_PASSWORD}}'
-          admin-username: '${{secrets.MSSQL_SA_USERNAME}}'
-
-      - name: Verify SQL Server Connection
-        run: sqlcmd -S localhost -U ${{secrets.MSSQL_SA_USERNAME}} -P ${{secrets.MSSQL_SA_PASSWORD}} -C -Q "SELECT @@VERSION"
-
       - name: "Checkout code"
         uses: actions/checkout@v4
 
       - name: "Build Banking DB"
-        uses: './.github/actions/buildProject'
+        uses: './.github/actions/builSQLdProject'
         with:
           projectName: "BankingDB"
           configuration: "Debug"
 
       - name: "Build Reporting DB"
-        uses: './.github/actions/buildProject'
+        uses: './.github/actions/builSQLdProject'
         with:
           projectName: "ReportingDB"
           configuration: "Debug"
           buildProperties: "/p:BankingDatabaseName=BankingDB"
-
-      - name: "Debug"
-        run: tree
-
+          
+      - name: Install a SQL Server suite of tools
+        uses: potatoqualitee/mssqlsuite@v2
+        with:
+          install: sqlengine, sqlpackage
+          sa-password: ${{ vars.LOCAL_MSSQL_SA_USERNAME }}
+          admin-username: ${{ vars.LOCAL_MSSQL_SA_PASSWORD }}
+          
+      - name: Verify SQL Server Connection
+        run: sqlcmd -S localhost -U $env.DB_USER -P $env.DB_PASS -C -Q "SELECT @@VERSION"
+      
+      
+      - name: "Build and Test Testing project"
+        run: |
+          dotnet build DataBaseTests
+          dotnet test

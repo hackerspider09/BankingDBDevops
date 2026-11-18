@@ -1,0 +1,26 @@
+
+name: Build Project
+description: Build given Project to create dacpac
+
+inputs:
+  projectName:
+    required: true
+    description: "Project dir which has to build"
+  configuration:
+    description: "Config mode: Debug, Release"
+    default: 'Debug'
+  buildProperties:
+    description: "Build properties used during building project: /p:BankingDatabaseName=BankingDB"
+    default: ''
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Clean Project"
+      shell: pwsh
+      run: ./Build/CleanProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}}
+    
+    - name: "Build Project"
+      shell: pwsh
+      run: ./Build/BuildProject.ps1 -ProjectName ${{inputs.projectName}} -Configuration ${{inputs.configuration}} -BuildProperties '${{inputs.buildProperties}}'
