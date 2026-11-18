@@ -14,9 +14,13 @@ jobs:
   build_and_test:
     runs-on: windows-latest
     env:
+      ConnectionStrings__BankingDB: "Server=localhost;Database=BankingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
+      ConnectionStrings__ReportingDB: "Server=localhost;Database=ReportingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
+      LinkedServers__BankingDB_LinkServerName: ${{ vars.BankingDB_LinkServerName }}
       BankingDB: "Server=localhost;Database=BankingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
       ReportingDB: "Server=localhost;Database=ReportingDB;User Id=${{ vars.LOCAL_MSSQL_SA_USERNAME }};Password=${{ secrets.LOCAL_MSSQL_SA_PASSWORD }};TrustServerCertificate=True;"
-
+      BankingDB_LinkServerName: ${{ vars.BankingDB_LinkServerName }}
+      
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4

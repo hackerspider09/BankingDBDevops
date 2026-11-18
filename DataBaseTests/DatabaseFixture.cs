@@ -16,12 +16,15 @@ public class DatabaseFixture
             .Build();
 
         BankingConnectionString = config.GetConnectionString("BankingDB")
+            ?? config["BankingDB"]
             ?? throw new InvalidOperationException("BankingDb connection string is missing.");
 
         ReportingConnectionString = config.GetConnectionString("ReportingDB")
+            ?? config["ReportingDB"]
             ?? throw new InvalidOperationException("ReportingDb connection string is missing.");
 
         BankingLinkServerName = config["LinkedServers:BankingDB_LinkServerName"]
+            ?? config["BankingDB_LinkServerName"]
             ?? throw new InvalidOperationException("LinkedServers:BankingDB_LinkServerName is missing from appsettings.");
     }
 }
