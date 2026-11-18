@@ -65,8 +65,10 @@ $T_SQL = @"
     end catch;
 "@
 
-Invoke-SqlCmd -ServerInstance $Local_DataSource `
-              -Username $LocalDbUser `
-              -Password $LocalDbPassword `
-              -Query $T_SQL `
-              -TrustServerCertificate
+$connStr = "Server=$Local_DataSource;Database=master;User Id=$LocalDbUser;Password=$LocalDbPassword;TrustServerCertificate=True;Encrypt=False;"
+
+if (Get-Command Invoke-Sqlcmd -ErrorAction SilentlyContinue) {
+    Invoke-Sqlcmd -ConnectionString $connStr -Query $T_SQL
+} else {
+    sqlcmd -S $Local_DataSource -U $LocalDbUser -P $LocalDbPassword -C -Q $T_SQL
+}
