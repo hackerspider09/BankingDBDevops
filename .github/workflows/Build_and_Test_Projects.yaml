@@ -42,8 +42,8 @@ jobs:
         uses: potatoqualitee/mssqlsuite@v2
         with:
           install: sqlengine, sqlpackage
-          sa-password: ${{ vars.LOCAL_MSSQL_SA_USERNAME }}
-          admin-username: ${{ vars.LOCAL_MSSQL_SA_PASSWORD }}
+          sa-password: ${{ secrets.LOCAL_MSSQL_SA_PASSWORD }}
+          admin-username: ${{ vars.LOCAL_MSSQL_SA_USERNAME }}
           
       - name: Verify SQL Server Connection
         run: sqlcmd -S localhost -U $env.DB_USER -P $env.DB_PASS -C -Q "SELECT @@VERSION"
