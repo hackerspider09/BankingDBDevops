@@ -7,8 +7,8 @@ on:
 jobs:
   build_project:
     uses: "./.github/workflows/Build_and_Test_Projects.yaml"
+    secrets: inherit 
     with:
-      projectName: "BankingDB"
       configuration: "Debug"
   
     

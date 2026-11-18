@@ -4,10 +4,6 @@ name: Build SQL Project
 on:
   workflow_call: 
     inputs:
-      projectName:
-        required: true
-        type: string
-        description: "Project path which needs to build"
       configuration:
         type: string
         default: "Debug"
@@ -18,7 +14,25 @@ jobs:
   build_and_test:
     runs-on: windows-latest
 
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2025-latest
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: ${{secrets.MSSQL_SA_PASSWORD}} 
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U ${{secrets.MSSQL_SA_USERNAME}} -P ${{secrets.MSSQL_SA_PASSWORD}} -C -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
+      - name: Verify SQL Server Connection
+        run: |
+          /opt/mssql-tools18/bin/sqlcmd -S 127.0.0.1 -U sa -P YourStrong!Password123 -C -Q "SELECT @@VERSION"
+
       - name: "Checkout code"
         uses: actions/checkout@v7
 
