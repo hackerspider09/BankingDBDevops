@@ -26,7 +26,7 @@ jobs:
         run: sqlcmd -S localhost -U ${{secrets.MSSQL_SA_USERNAME}} -P ${{secrets.MSSQL_SA_PASSWORD}} -C -Q "SELECT @@VERSION"
 
       - name: "Checkout code"
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: "Build Banking DB"
         uses: './.github/actions/buildProject'
