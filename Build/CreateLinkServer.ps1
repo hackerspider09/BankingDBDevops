@@ -39,6 +39,7 @@ $T_SQL = @"
         EXEC [master].[sys].[sp_dropserver] 
             @server = N'$LinkedServerName',
             @droplogins = 'droplogins';
+    GO
     
     -- 3. Create linked server
     EXEC [master].[sys].[sp_addlinkedserver] 
@@ -46,29 +47,34 @@ $T_SQL = @"
         @srvproduct = N'',
         @provider = N'MSOLEDBSQL19',
         @datasrc = N'$RemoteDataSource',
-        @provstr = N'Encrypt=Optional;TrustServerCertificate=Yes;';
+        @provstr = N'Encrypt=Optional;TrustServerCertificate=yes;';
+    GO
         
+    -- 4. Map login
     EXEC [master].[dbo].[sp_addlinkedsrvlogin]
         @rmtsrvname = N'$LinkedServerName',
         @locallogin = NULL,
         @useself = N'False',
         @rmtuser     = N'$RemoteUser', 
         @rmtpassword = N'$RemotePassword';
+    GO
     
-    begin try
-        EXEC sp_testlinkedserver N'$LinkedServerName';
-        SELECT 'Ping on linked server succeeded' AS Message;
-    end try
-    begin catch
-        select 'Ping on linkserver failed' as Message;
-        throw;
-    end catch;
+    -- 5. Test linked server
+    EXEC sp_testlinkedserver @servername = N'$LinkedServerName';
+    SELECT 'Ping on linked server succeeded' AS Message;
+    GO
 "@
 
-$connStr = "Server=$Local_DataSource;Database=master;User Id=$LocalDbUser;Password=$LocalDbPassword;TrustServerCertificate=True;Encrypt=False;"
-
-if (Get-Command Invoke-Sqlcmd -ErrorAction SilentlyContinue) {
-    Invoke-Sqlcmd -ConnectionString $connStr -Query $T_SQL
-} else {
-    sqlcmd -S $Local_DataSource -U $LocalDbUser -P $LocalDbPassword -C -Q $T_SQL
+$tempSqlFile = [System.IO.Path]::GetTempFileName() + ".sql"
+try {
+    Set-Content -Path $tempSqlFile -Value $T_SQL -Encoding UTF8
+    sqlcmd -S $Local_DataSource -U $LocalDbUser -P $LocalDbPassword -C -i $tempSqlFile -b
+    if ($LASTEXITCODE -ne 0) {
+        throw "sqlcmd failed to configure linked server with exit code $LASTEXITCODE."
+    }
+}
+finally {
+    if (Test-Path $tempSqlFile) {
+        Remove-Item -Path $tempSqlFile -Force -ErrorAction SilentlyContinue
+    }
 }
