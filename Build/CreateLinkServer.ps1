@@ -66,6 +66,15 @@ $T_SQL = @"
     EXEC sp_testlinkedserver @servername = N'$LinkedServerName';
     SELECT 'Ping on linked server succeeded' AS Message;
     GO
+
+    -- 6. Verify linked servers in sys.servers
+    SELECT
+        name,
+        product,
+        provider,
+        data_source
+    FROM sys.servers;
+    GO
 "@
 
 $tempSqlFile = [System.IO.Path]::GetTempFileName() + ".sql"

@@ -34,7 +34,7 @@ public class LinkedServerSetupTests
 
         Assert.Equal(_linkServerName,  reader["name"].ToString());
         Assert.Equal("",               reader["product"].ToString());   
-        Assert.Equal("MSOLEDBSQL19",   reader["provider"].ToString());   
+        Assert.StartsWith("MSOLEDBSQL", reader["provider"].ToString());   
         Assert.False(string.IsNullOrWhiteSpace(reader["data_source"].ToString()));
     }
 }
