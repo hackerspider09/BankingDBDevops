@@ -31,7 +31,7 @@ param (
     $DbServerPassword,
 
     [Parameter()]
-    [string []]
+    [string]
     $ServerVariables
 
 )
@@ -51,14 +51,27 @@ $PlainPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($DbServerPassword)
 )
 
-SqlPackage /Action:Publish `
-  /SourceFile:"$DacpacPath" `
-  /TargetDatabaseName:"$DbName" `
-  /TargetServerName:"$DbServerName" `
-  /TargetUser:"$DbServerUsername" `
-  /TargetPassword:"$PlainPassword" `
-  /TargetEncryptConnection:True `
-  /TargetTrustServerCertificate:True `
-  /p:AllowIncompatiblePlatform=True `
-  $ServerVariables
+$sqlPackageArgs = @(
+    "/Action:Publish",
+    "/SourceFile:$DacpacPath",
+    "/TargetDatabaseName:$DbName",
+    "/TargetServerName:$DbServerName",
+    "/TargetUser:$DbServerUsername",
+    "/TargetPassword:$PlainPassword",
+    "/TargetEncryptConnection:True",
+    "/TargetTrustServerCertificate:True",
+    "/p:AllowIncompatiblePlatform=True"
+)
+
+if ($ServerVariables) {
+    foreach ($var in $ServerVariables) {
+        if (-not [string]::IsNullOrWhiteSpace($var)) {
+            # Split multiple /v: variables if passed in a single string
+            $tokens = [regex]::Split($var.Trim(), '(?=\s+/v:)') | ForEach-Object { $_.Trim() } | Where-Object { $_ }
+            $sqlPackageArgs += $tokens
+        }
+    }
+}
+
+SqlPackage @sqlPackageArgs
 
