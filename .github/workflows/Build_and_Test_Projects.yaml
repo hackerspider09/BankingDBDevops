@@ -4,7 +4,7 @@ name: Build SQL Project
 on:
   workflow_call: 
     inputs:
-      projectDir:
+      projectName:
         required: true
         type: string
         description: "Project path which needs to build"

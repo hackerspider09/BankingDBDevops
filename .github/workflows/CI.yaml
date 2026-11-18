@@ -8,7 +8,7 @@ jobs:
   build_project:
     uses: "./.github/workflows/Build_and_Test_Projects.yaml"
     with:
-      inputs: "BankingDB"
+      projectName: "BankingDB"
       configuration: "Debug"
   
     
