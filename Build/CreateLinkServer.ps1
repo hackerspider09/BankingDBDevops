@@ -22,20 +22,23 @@ param (
     [string]$RemotePassword
 )
 
-
 Write-Host "--Link server setup--"
+
+# Escape any single quotes in passwords or names to prevent T-SQL syntax errors
+$EscapedRemotePassword = $RemotePassword -replace "'", "''"
+$EscapedRemoteUser = $RemoteUser -replace "'", "''"
 
 $T_SQL = @"
     USE [master];
     GO
 
-    # -- 1. Enable AllowInProcess and DynamicParameters for MSOLEDBSQL19
-    # EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'AllowInProcess', 1;
-    # EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL19', N'DynamicParameters', 1;
-    # GO
+    -- 1. Enable AllowInProcess and DynamicParameters for MSOLEDBSQL
+    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL', N'AllowInProcess', 1;
+    EXEC master.dbo.sp_MSset_oledb_prop N'MSOLEDBSQL', N'DynamicParameters', 1;
+    GO
 
     -- 2. Drop existing linked server if it exists
-    if exists ( select 1 from [master].[sys].[servers] where [name] = N'$LinkedServerName' )
+    IF EXISTS ( SELECT 1 FROM [master].[sys].[servers] WHERE [name] = N'$LinkedServerName' )
         EXEC [master].[sys].[sp_dropserver] 
             @server = N'$LinkedServerName',
             @droplogins = 'droplogins';
@@ -47,7 +50,7 @@ $T_SQL = @"
         @srvproduct = N'',
         @provider = N'MSOLEDBSQL',
         @datasrc = N'$RemoteDataSource',
-        @provstr = N'Encrypt=Mandatory;TrustServerCertificate=Yes;';
+        @provstr = N'Encrypt=Yes;TrustServerCertificate=Yes;';
     GO
         
     -- 4. Map login
@@ -55,8 +58,8 @@ $T_SQL = @"
         @rmtsrvname = N'$LinkedServerName',
         @locallogin = NULL,
         @useself = N'False',
-        @rmtuser     = N'$RemoteUser', 
-        @rmtpassword = N'$RemotePassword';
+        @rmtuser     = N'$EscapedRemoteUser', 
+        @rmtpassword = N'$EscapedRemotePassword';
     GO
     
     -- 5. Test linked server
