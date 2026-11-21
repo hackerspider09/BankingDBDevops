@@ -38,7 +38,7 @@ $bankingDbLinkServer = $OctopusParameters["DB_BankingDB_LinkServer"]
 
 # Resolve dacpac path
 $packageRoot = $PSScriptRoot
-$dacpacPath  = Join-Path $packageRoot "content\ReportingDB.dacpac"
+$dacpacPath  = Join-Path $packageRoot "tools\ReportingDB.dacpac"
 
 if (-not (Test-Path $dacpacPath)) {
     throw "DACPAC not found at: $dacpacPath"

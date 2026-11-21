@@ -30,7 +30,7 @@ $dbPassword = $OctopusParameters["DB_BankingDB_Password"]
 
 # Resolve path to the dacpac inside the extracted package
 $packageRoot = $PSScriptRoot
-$dacpacPath  = Join-Path $packageRoot "content\BankingDB.dacpac"
+$dacpacPath  = Join-Path $packageRoot "tools\BankingDB.dacpac"
 
 if (-not (Test-Path $dacpacPath)) {
     throw "DACPAC not found at: $dacpacPath"

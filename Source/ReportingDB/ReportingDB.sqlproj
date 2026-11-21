@@ -12,17 +12,16 @@
     <Authors>Prasad</Authors>
     <Description>ReportingDB DACPAC and deployment script for Octopus Deploy</Description>
     <PackageTags>database dacpac sqlserver reportingdb</PackageTags>
-
-    <!-- Put dacpac inside content/ instead of tools/ -->
-    <BuildOutputTargetFolder>content</BuildOutputTargetFolder>
+    <!-- SDK auto-places dacpac in tools/ — no override needed -->
   </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="dbo" />
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\Tables" />
   </ItemGroup>
 
-  <!-- Include Deploy.ps1 inside the NuGet package -->
+  <!-- Deploy.ps1 at package root; dacpac goes to tools/ automatically via SDK -->
   <ItemGroup>
     <None Include="Deploy.ps1">
       <Pack>true</Pack>
