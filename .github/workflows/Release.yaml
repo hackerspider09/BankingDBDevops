@@ -63,5 +63,5 @@ jobs:
           overwrite_mode: OverwriteExisting
         with:
           packages: |
-            artifacts/BankingDB.Package.${{ inputs.version }}.nupkg
+            artifacts/BankingDB.Package.${{ inputs.version }}.nupkg `
             artifacts/ReportingDB.Package.${{ inputs.version }}.nupkg
