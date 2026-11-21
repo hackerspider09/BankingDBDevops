@@ -1,0 +1,54 @@
+name: Release Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. 1.2.3)"
+        required: true
+        type: string
+jobs:
+  # build_test:
+  #   uses: "./.github/workflows/Build_and_Test_Projects.yaml"
+  #   secrets: inherit
+  #   with:
+  #     configuration: "Release"
+
+  build_pkg_project:
+    # needs: build_test
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build BankingDB
+        uses: './.github/actions/buildSQLProject'
+        with:
+          projectName: "BankingDB"
+          configuration: "Release"
+
+      - name: Build ReportingDB
+        uses: './.github/actions/buildSQLProject'
+        with:
+          projectName: "ReportingDB"
+          configuration: "Release"
+          buildProperties: "/p:BankingDatabaseName=BankingDB"
+
+      - name: Pack BankingDB NuGet
+        run: |
+          ./Build/Pack-DatabaseNuGet.ps1 `
+            -ProjectName "BankingDB" `
+            -Version "${{ inputs.version }}" `
+            -Configuration "Release" `
+            -OutputDir "./artifacts"
+
+      - name: Pack ReportingDB NuGet
+        run: |
+          ./Build/Pack-DatabaseNuGet.ps1 `
+            -ProjectName "ReportingDB" `
+            -Version "${{ inputs.version }}" `
+            -Configuration "Release" `
+            -OutputDir "./artifacts"
+
+      - name: "Debug"
+        run: ls artifacts
