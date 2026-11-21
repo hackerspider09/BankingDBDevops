@@ -52,3 +52,16 @@ jobs:
 
       - name: "Debug"
         run: ls artifacts
+
+      - name: Push a package to Octopus Deploy
+        id: push_a_package_to_octopus_deploy
+        uses: OctopusDeploy/push-package-action@v4
+        env:
+          OCTOPUS_URL: ${{ vars.OCTOPUS_FEED_URL }}
+          OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_FEED_API_KEY }}
+          OCTOPUS_SPACE: 'Default'
+          overwrite_mode: OverwriteExisting
+        with:
+          packages: |
+            artifacts/BankingDB.Package.${{ inputs.version }}.nupkg
+            artifacts/ReportingDB.Package.${{ inputs.version }}.nupkg
