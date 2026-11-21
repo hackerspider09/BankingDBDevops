@@ -6,11 +6,28 @@
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>
     <ProjectGuid>B2D12F51-2868-4E77-B580-902235DA52A1</ProjectGuid>
+
+    <!-- NuGet package metadata (used by dotnet pack) -->
+    <PackageId>ReportingDB.Package</PackageId>
+    <Authors>Prasad</Authors>
+    <Description>ReportingDB DACPAC and deployment script for Octopus Deploy</Description>
+    <PackageTags>database dacpac sqlserver reportingdb</PackageTags>
+
+    <!-- Put dacpac inside content/ instead of tools/ -->
+    <BuildOutputTargetFolder>content</BuildOutputTargetFolder>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="dbo" />
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\Tables" />
+  </ItemGroup>
+
+  <!-- Include Deploy.ps1 inside the NuGet package -->
+  <ItemGroup>
+    <None Include="Deploy.ps1">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <!-- BankingDB reference -->
