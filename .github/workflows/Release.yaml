@@ -60,8 +60,8 @@ jobs:
           OCTOPUS_URL: ${{ vars.OCTOPUS_FEED_URL }}
           OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_FEED_API_KEY }}
           OCTOPUS_SPACE: 'Default'
-          overwrite_mode: OverwriteExisting
         with:
+          overwrite_mode: OverwriteExisting
           packages: |
             artifacts/BankingDB.Package.${{ inputs.version }}.nupkg `
             artifacts/ReportingDB.Package.${{ inputs.version }}.nupkg
