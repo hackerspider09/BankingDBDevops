@@ -9,11 +9,11 @@ on:
         type: string
         default: "1.0.0"
 jobs:
-  # build_test:
-  #   uses: "./.github/workflows/Build_and_Test_Projects.yaml"
-  #   secrets: inherit
-  #   with:
-  #     configuration: "Release"
+  build_test:
+    uses: "./.github/workflows/Build_and_Test_Projects.yaml"
+    secrets: inherit
+    with:
+      configuration: "Release"
 
   build_pkg_project:
     # needs: build_test
