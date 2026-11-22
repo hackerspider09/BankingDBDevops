@@ -39,6 +39,8 @@ $bankingDbLinkServer = $OctopusParameters["DB_BankingDB_LinkServer"]
 # Resolve dacpac path
 $packageRoot = $PSScriptRoot
 $dacpacPath  = Join-Path $packageRoot "tools\ReportingDB.dacpac"
+$toolsDir    = Split-Path -Path $dacpacPath -Parent
+$refDacpac   = Join-Path $toolsDir "BankingDB.dacpac"
 
 if (-not (Test-Path $dacpacPath)) {
     throw "DACPAC not found at: $dacpacPath"
@@ -48,12 +50,14 @@ Write-Host "=== Deploying ReportingDB ==="
 Write-Host "  Server          : $dbServer"
 Write-Host "  Database        : $dbName"
 Write-Host "  DACPAC          : $dacpacPath"
+Write-Host "  Referenced DACPAC: $refDacpac (Exists: $(Test-Path $refDacpac))"
 Write-Host "  BankingDB Name  : $bankingDbName"
 Write-Host "  BankingDB Link  : $bankingDbLinkServer"
 
 $sqlPackageArgs = @(
     "/Action:Publish",
     "/SourceFile:$dacpacPath",
+    "/ReferencePaths:$toolsDir",
     "/TargetDatabaseName:$dbName",
     "/TargetServerName:$dbServer",
     "/TargetUser:$dbUser",
