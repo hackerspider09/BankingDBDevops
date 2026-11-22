@@ -66,3 +66,18 @@ jobs:
           packages: |
             artifacts/BankingDB.Package.${{ inputs.version }}.nupkg
             artifacts/ReportingDB.Package.${{ inputs.version }}.nupkg
+          
+      - name: Create a release in Octopus Deploy
+        id: create_a_release_in_octopus_deploy  
+        uses: OctopusDeploy/create-release-action@v4
+        env:
+          OCTOPUS_URL: ${{ vars.OCTOPUS_FEED_URL }}
+          OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_FEED_API_KEY }}
+          OCTOPUS_SPACE: 'Default'
+        with:
+          project: 'bankingdb'
+          git_ref: ${{ github.ref }}
+          git_commit: ${{ github.sha }}
+          packages: |
+             BankingDB.Package:${{ inputs.version }}
+             ReportingDB.Package:${{ inputs.version }}
