@@ -16,7 +16,7 @@ jobs:
       configuration: "Release"
 
   build_pkg_project:
-    # needs: build_test
+    needs: build_test
     runs-on: windows-latest
     steps:
       - name: Checkout code
