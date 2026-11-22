@@ -76,8 +76,6 @@ jobs:
           OCTOPUS_SPACE: 'Default'
         with:
           project: 'bankingdb'
-          git_ref: ${{ github.ref }}
-          git_commit: ${{ github.sha }}
           packages: |
              BankingDB.Package:${{ inputs.version }}
              ReportingDB.Package:${{ inputs.version }}
