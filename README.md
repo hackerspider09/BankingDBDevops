@@ -4,6 +4,10 @@ This project demonstrates the implementation of a Database DevOps workflow for M
 
 The objective is to automate the database development and deployment lifecycle by treating database schema changes as code. Instead of manually modifying database objects and deploying ad-hoc SQL scripts, this solution uses a version-controlled database project, automated build and validation pipelines, deployable DACPAC artifacts, and automated tests.
 
+The architecture decouples operational and analytical workloads across two isolated databases:
+- **BankingDB**: Core OLTP database handling real-time customer accounts and transactions.
+- **ReportingDB**: Analytical database that extracts and aggregates transaction metrics from BankingDB via a **SQL Linked Server (`BankingDBServerLink`)** using the `MSOLEDBSQL` OLE DB driver for cross-database queries.
+
 ---
 
 ## System Architecture
@@ -22,6 +26,7 @@ The objective is to automate the database development and deployment lifecycle b
 | **Source Control** | Git & GitHub | Version control and pull request management |
 | **CI/CD Automation** | GitHub Actions | Automated build, test, and package pipelines |
 | **Deployment Management** | Octopus Deploy | Environment-aware release and machine-scoped deployments |
+| **Cross-Server Integration** | SQL Linked Server (`MSOLEDBSQL`) | Secure communication between ReportingDB and BankingDB |
 | **Hosting Infrastructure** | Windows Server (AWS EC2) | Target database host virtual machines |
 
 ---
