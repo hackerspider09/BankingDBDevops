@@ -49,7 +49,7 @@ BankingDBDevops/
 │   ├── CreateLinkServer.ps1      # Automated SQL Linked Server setup
 │   ├── PublishDacpacFile.ps1     # SqlPackage CLI wrapper
 │   └── Pack-DatabaseNuGet.ps1    # Automated dotnet pack wrapper
-├── DataBaseTests/                # Integration test suite (xUnit + Dapper)
+├── DataBaseTests/                # Integration test suite (xUnit)
 │   ├── LinkedServerSetupTests.cs # Validates linked server health & connectivity
 │   └── SchemaColumnTests.cs      # Validates schema integrity, types, constraints
 ├── Operations/                   # Operational scripts, queries, and diagnostics
