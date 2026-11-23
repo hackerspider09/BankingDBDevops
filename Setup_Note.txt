@@ -1,0 +1,39 @@
+sql server link: https://www.microsoft.com/en-us/evalcenter/download-sql-server-2022
+
+sqlpakacge: https://learn.microsoft.com/en-us/sql/tools/sqlpackage/sqlpackage-download?view=sql-server-ver17
+
+octopus tentacle: https://octopus.com/downloads/tentacle
+
+install sql server and sqlpakacge and tentacle
+
+for sql server: use custome instalation and install database engin, 
+during instllation use mixed password and add current user as admin
+then from sql server manger enable tcp ip from network config 
+restart mssqlserver: Restart-Service MSSQLSERVER
+check ststus: Get-Service MSSQLSERVER
+
+install ole db driver 19: https://learn.microsoft.com/en-us/sql/connect/oledb/download-oledb-driver-for-sql-server?view=sql-server-ver17 
+on reporting db server
+also vs redistribution ( https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) as it required for driver (both 64 and 86)
+and restart mssql
+
+
+enable inbound rule by 
+New-NetFirewallRule `
+  -DisplayName "SQL Server TCP 1433" `
+  -Direction Inbound `
+  -Protocol TCP `
+  -LocalPort 1433 `
+  -RemoteAddress Any `
+  -Action Allow
+
+for tentacle : use api token and follow  instation
+tags to target DBOps,BankingDB,ReportingDB
+
+install sqlpackage zip from file downalod and install extratc it in c and add path in system to that dir to use from anywhere
+restart tentacle on that machine so it should able to use it
+
+
+for octopus api tokens
+for githiba ctions: pkg publisher and project viewer
+for tentacle: environent manager and project viewer

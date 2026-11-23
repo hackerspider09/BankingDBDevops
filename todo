@@ -1,2 +1,7 @@
 15/11/2026
-[] in report creation add updatedate when report will update use this
+[] in report creation add updatedate column when report will update use this
+
+23/11/2026
+[] add linkserver creation step in octopus
+[] automate infra creation 
+[] install required applications and software by automation
